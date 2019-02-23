@@ -34,7 +34,6 @@ class DetailFilme : AppCompatActivity() {
         setTitle(obj.title)
 
 
-//        recyclerDetails.layoutManager = GridLayoutManager(this, 2)
 
         layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recyclerDetails.layoutManager = layoutManager

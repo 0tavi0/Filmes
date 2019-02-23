@@ -38,17 +38,13 @@ class FilmesAdapter(val lista:List<Filme>, val context: Context):RecyclerView.Ad
             .placeholder(R.mipmap.ic_placeholder)
             .into(holder.imgCover)
 
+        holder.txtYear.text = lista[position].release_year
+        holder.txtDuration.text = lista[position].duration
+
         holder.itemView.setOnClickListener {
             val i = Intent(context, DetailFilme::class.java)
-//            i.putExtra("title", lista[position].title)
-//            i.putExtra("overview", lista[position].overview)
-//            i.putStringArrayListExtra("backdrops_url", lista[position].backdrops_url as ArrayList<String>?)
-
             i.putExtra("obj", filme)
-
             context.startActivity(i)
-
-
         }
 
 
@@ -57,6 +53,9 @@ class FilmesAdapter(val lista:List<Filme>, val context: Context):RecyclerView.Ad
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val txtTitle = itemView.findViewById(R.id.txtTitulo) as TextView
         val imgCover = itemView.findViewById(R.id.imgCover) as ImageView
+        val txtYear = itemView.findViewById(R.id.txtAno) as TextView
+        val txtDuration = itemView.findViewById(R.id.txtDuration) as TextView
+
 
     }
 
