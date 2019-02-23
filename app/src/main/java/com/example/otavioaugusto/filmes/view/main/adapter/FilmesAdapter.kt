@@ -1,8 +1,10 @@
-package com.example.otavioaugusto.filmes.view.main
+package com.example.otavioaugusto.filmes.view.main.adapter
 
 import android.content.Context
-import android.net.Uri
+import android.content.Intent
+import android.os.Parcelable
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +12,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.otavioaugusto.filmes.R
 import com.example.otavioaugusto.filmes.model.Filme
+import com.example.otavioaugusto.filmes.view.details.DetailFilme
 import com.squareup.picasso.Picasso
+import java.io.Serializable
+import java.util.*
 
 class FilmesAdapter(val lista:List<Filme>, val context: Context):RecyclerView.Adapter<FilmesAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
@@ -24,12 +29,28 @@ class FilmesAdapter(val lista:List<Filme>, val context: Context):RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txtTitle.text = lista[position].title
 
-        Picasso.get().load(lista[position].cover_url).into(holder.imgCover)
-//
-//        val imageUri = Uri.parse(lista[position].cover_url)
-//        holder.imgCover.setImageURI(imageUri)
+        val filme = lista[position]
+
+        holder.txtTitle.text = lista[position].title
+        Picasso.get()
+            .load(lista[position].cover_url)
+            .placeholder(R.mipmap.ic_placeholder)
+            .into(holder.imgCover)
+
+        holder.itemView.setOnClickListener {
+            val i = Intent(context, DetailFilme::class.java)
+//            i.putExtra("title", lista[position].title)
+//            i.putExtra("overview", lista[position].overview)
+//            i.putStringArrayListExtra("backdrops_url", lista[position].backdrops_url as ArrayList<String>?)
+
+            i.putExtra("obj", filme)
+
+            context.startActivity(i)
+
+
+        }
+
 
     }
 
@@ -40,7 +61,6 @@ class FilmesAdapter(val lista:List<Filme>, val context: Context):RecyclerView.Ad
     }
 
     }
-
 
 
 

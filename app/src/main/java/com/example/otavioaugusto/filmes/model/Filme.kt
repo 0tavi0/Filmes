@@ -1,6 +1,7 @@
 package com.example.otavioaugusto.filmes.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Filme (
     @SerializedName("title")
@@ -17,4 +18,4 @@ data class Filme (
     var backdrops_url: List<String>,
     @SerializedName("id")
     var id:String
-)
+):Serializable

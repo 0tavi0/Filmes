@@ -2,11 +2,14 @@ package com.example.otavioaugusto.filmes.view.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 
 import com.example.otavioaugusto.filmes.R
 import com.example.otavioaugusto.filmes.model.Filme
 import com.example.otavioaugusto.filmes.presenter.FilmesPresenter
+import com.example.otavioaugusto.filmes.view.main.adapter.FilmesAdapter
 import kotlinx.android.synthetic.main.activity_filmes.*
 
 class FilmesActivity : AppCompatActivity(), FilmesContrato.View {
@@ -22,10 +25,8 @@ class FilmesActivity : AppCompatActivity(), FilmesContrato.View {
 
         presenter.getDadosAPI()
 
-       // recycler.layoutManager = LinearLayoutManager(this)
 
         recycler.layoutManager = GridLayoutManager(this, 2)
-
         recycler.setHasFixedSize(true)
 
     }
