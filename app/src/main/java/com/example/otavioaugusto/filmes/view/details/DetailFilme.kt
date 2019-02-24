@@ -1,5 +1,6 @@
 package com.example.otavioaugusto.filmes.view.details
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.R.attr.layoutManager
 import android.support.design.widget.Snackbar
@@ -9,6 +10,8 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import com.example.otavioaugusto.filmes.R
 import com.example.otavioaugusto.filmes.model.Filme
 import com.example.otavioaugusto.filmes.view.details.adapter.DetailsAdapter
@@ -20,6 +23,7 @@ import kotlinx.android.synthetic.main.content_detail_filme.*
 class DetailFilme : AppCompatActivity() {
 
     private lateinit var layoutManager: LinearLayoutManager
+    var filme: Filme? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +33,7 @@ class DetailFilme : AppCompatActivity() {
 
         val i = intent
         var obj = i.getSerializableExtra("obj") as Filme
-
+        filme = obj
         txtDetailsOverview.text = obj.overview
         setTitle(obj.title)
 
@@ -43,5 +47,33 @@ class DetailFilme : AppCompatActivity() {
 
         val adapter = DetailsAdapter(obj.backdrops_url, this)
         recyclerDetails.adapter = adapter
+
+
+
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail_filme   ,menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            R.id.menu_share -> {
+
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND_MULTIPLE
+                    putExtra(Intent.EXTRA_TEXT, "${filme!!.title + "\n" + filme!!.overview}")
+                    type = "text/plain"
+                }
+                startActivity(sendIntent)
+
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
 }
