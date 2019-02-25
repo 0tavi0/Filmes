@@ -13,26 +13,28 @@ import retrofit2.Response
 class FilmesPresenter(var view: FilmesActivity):FilmesContrato.Presenter {
 
     override fun getDadosAPI() {
+        view.showProgressBar()
+
         var call = RetrofitService
             .retrofit.create(ApiService::class.java)
             .getFilmes()
 
         call.enqueue(object : Callback<List<Filme>>{
             override fun onFailure(call: Call<List<Filme>>, t: Throwable) {
-                Log.e("failure", ""+t.message)
+
+                view.mensagemErro(t.message!!)
 
             }
 
             override fun onResponse(call: Call<List<Filme>>, response: Response<List<Filme>>) {
-                Log.e("Aqui", ""+response.code())
-               // Log.e("Aquiss", ""+response.body())
-
                 var listOfMovies: List<Filme>? = response.body()
-
 
                 if (response.isSuccessful){
                     view.ListaFilmes(listOfMovies!!)
                 }
+
+                view.hideProgressBar()
+
 
             }
 

@@ -9,7 +9,9 @@ import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 
 import com.example.otavioaugusto.filmes.R
 import com.example.otavioaugusto.filmes.model.Filme
@@ -41,13 +43,23 @@ class FilmesActivity : AppCompatActivity(), FilmesContrato.View {
 
 
     override fun ListaFilmes(lista: List<Filme>) {
-
         val adapter = FilmesAdapter(lista, this)
-
         recycler.adapter = adapter
+    }
 
+    override fun mensagemErro(msg:String) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
 
-
+    override fun showProgressBar() {
+        progressBar.visibility = View.VISIBLE
 
     }
+
+    override fun hideProgressBar() {
+        progressBar.visibility = View.INVISIBLE
+
+    }
+
+
 }
